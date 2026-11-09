@@ -11,6 +11,12 @@
 #            thoraxis-article
 #
 # El artefacto se descarga desde la pestaña Actions durante 30 días.
+#
+# En un push a main corre solo si cambia algo que afecte al PDF. En un PR
+# corre siempre, sin filtro de rutas: el ruleset de main exige Lint y Build
+# en todo PR, incluido el de release-please, que solo toca CHANGELOG.md y
+# .release-please-manifest.json. Con filtro, ese PR no tendría checks y
+# quedaría bloqueado.
 # =============================================================================
 
 name: CI - Build PDF
@@ -28,14 +34,6 @@ on:
       - ".github/workflows/**"
   pull_request:
     branches: [main]
-    paths:
-      - "**.tex"
-      - "**.bib"
-      - ".chktexrc"
-      - ".latexmkrc"
-      - "figures/**"
-      - "scripts/build.sh"
-      - ".github/workflows/**"
   workflow_dispatch:
 
 permissions:
