@@ -66,10 +66,12 @@ Repositorios del proyecto:
 │   ├── watch.sh / watch.ps1      # Recompilar al guardar (latexmk -pvc)
 │   └── clean.sh / clean.ps1      # Borrar build/
 ├── build/                        # Salida: PDF y auxiliares (ignorada por git)
-├── .github/workflows/
-│   ├── ci.yml                    # Lint (chktex) y compilación en cada push y PR
-│   ├── release.yml               # Versión del repo con release-please
-│   └── cd.yml                    # Compila el informe desde una versión (solo manual)
+├── .github/
+│   ├── pull_request_template.md  # Plantilla de los PR (en español)
+│   └── workflows/
+│       ├── ci.yml                # Lint (chktex) y compilación en cada push y PR
+│       ├── release.yml           # Versión del repo con release-please
+│       └── cd.yml                # Compila el informe desde una versión (solo manual)
 ├── .vscode/                      # Receta de LaTeX Workshop y extensión recomendada
 ├── .chktexrc                     # Reglas del lint: avisos desactivados y por qué
 ├── .release-please-config.json   # Configuración de release-please
@@ -232,9 +234,15 @@ final de la descripción.
 
 ### Flujo de un cambio
 
-1. Crea una rama (`feat/...`, `fix/...`, `docs/...`), edita y compila en local.
-2. Abre un PR a `main` con **título convencional**. La CI pasa el lint y deja
-   el PDF como artefacto para revisarlo.
+Los cambios entran a `main` solo mediante PR.
+
+1. Crea una rama con nombre **en inglés** (`feat/...`, `fix/...`, `docs/...`;
+   por ejemplo, `feat/data-section`), edita y compila en local.
+2. Abre un PR a `main` con **título convencional en español** (por ejemplo,
+   `feat: agrega la sección de datos`). La descripción también va en español
+   y sigue la plantilla de `.github/pull_request_template.md`, que GitHub
+   carga sola al abrir el PR. La CI pasa el lint y deja el PDF como artefacto
+   para revisarlo.
 3. Squash merge. release-please actualiza el PR de release.
 4. Cuando quieras versionar, mergea el PR de release. Cuando necesites el PDF
    de esa versión, compílalo con `cd.yml`.
