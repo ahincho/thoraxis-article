@@ -167,7 +167,9 @@ El mismo modelo que el repo del CV, con las recetas de LaTeX de
 **fijadas a la rama `main`** (`@main`): una mejora en las recetas llega sola a
 este repo, sin actualizar un SHA.
 
-- **`ci.yml`**: en cada push y PR a `main`:
+- **`ci.yml`**: en todo PR a `main`, sin filtro de rutas, porque el ruleset de
+  `main` exige sus dos checks en cada PR, incluido el de release-please; y en
+  cada push a `main` que cambie algo del PDF:
   - **Lint** (`reusable-latex-lint.yml`): pasa
     [chktex](https://www.nongnu.org/chktex/) por todos los `.tex`. Cada aviso
     aparece como anotación en la línea del PR y hace fallar la CI.
