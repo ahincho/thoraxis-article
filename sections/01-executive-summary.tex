@@ -1,0 +1,71 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% 3.2 Resumen ejecutivo
+% =============================================================================
+% La guía pide: descripción del problema, la solución desarrollada, los datos
+% utilizados y los principales resultados. Debe permitir comprender el aporte
+% del proyecto y NO EXCEDER UNA PÁGINA. Si se pasa, los scripts de
+% compilación lo avisan (ver \articleCheckOnePage en config/commands.tex).
+%
+% Versión del primer avance: resume lo redactado en las secciones 1 a 3. Los
+% resultados se completan cuando existan y el resto se ajusta tras cada
+% asesoría.
+% =============================================================================
+
+\section*{Resumen ejecutivo}
+\addcontentsline{toc}{section}{Resumen ejecutivo}
+\label{summary:start}
+
+\paragraph{Problema.}
+Las enfermedades pulmonares están entre las principales causas de muerte en el
+mundo: en 2023, la EPOC fue la tercera, y en 2024 el cáncer de pulmón fue el
+más diagnosticado, con casi 2,6 millones de casos nuevos
+\parencite{oms2026, sung2026}. La tomografía computarizada permite medirlas,
+pero para cuantificar el volumen pulmonar o la extensión de una lesión primero
+hay que delimitar el pulmón. Hacerlo a mano toma horas por estudio, los métodos
+clásicos fallan cuando el pulmón tiene patología, y los modelos publicados son
+difíciles de comparar y de reproducir.
+
+\paragraph{Solución.}
+Thoraxis segmenta automáticamente el pulmón izquierdo y el derecho en
+tomografías de tórax con Deep Learning y calcula el volumen de cada uno. La
+solución base es una U-Net 2D que procesa cada corte por separado; la propuesta
+agrega contexto entre cortes contiguos (2.5D), aumentos de datos y datos de
+entrenamiento más diversos. El modelo elegido se exporta a ONNX y se sirve con
+una API en FastAPI, que alimenta un visor web con la máscara superpuesta y un
+mapa de incertidumbre que muestra dónde el modelo es menos confiable. El
+ciclo de vida sigue prácticas de MLOps: experimentos en MLflow sobre
+Databricks, datos versionados con DVC, integración continua con GitHub Actions,
+reentrenamiento en Kaggle, monitoreo de la deriva con Evidently y del
+rendimiento de la API con OpenTelemetry y Grafana.
+
+\paragraph{Datos.}
+Se usan tres conjuntos públicos y anonimizados con máscaras de ambos pulmones.
+Para entrenar, validar y probar se combinan TotalSegmentator, con 1939
+tomografías de rutina clínica, y 20 tomografías de pacientes con COVID-19. La
+validación externa se hace con LCTSC: 60 pacientes con cáncer de pulmón de tres
+instituciones, que no se usan para entrenar. Toda partición se hace
+por paciente, y ningún dato médico se guarda en los repositorios.
+
+\paragraph{Resultados esperados.}
+El proyecto se considerará exitoso si la propuesta alcanza un coeficiente de
+Dice medio de al menos 0,95 por pulmón en la validación externa, supera a la
+solución base con un intervalo de confianza que excluya el cero, funciona de
+extremo a extremo en el prototipo y su evaluación puede reproducirse desde los
+repositorios.
+\pendiente{métricas obtenidas por la propuesta y la solución base}
+
+\paragraph{Aporte y limitaciones.}
+Thoraxis aporta un modelo de segmentación pulmonar portable, explicado con
+mapas de incertidumbre en lugar de mapas de calor poco confiables, y una
+evaluación reproducible, con validación externa e intervalos de confianza. Es
+una
+herramienta de investigación y no un sistema de diagnóstico: se evalúa solo con
+datos públicos, sin validación clínica, y las diferencias en cómo cada conjunto
+delimita el pulmón pueden afectar sus métricas.
+
+\medskip
+\noindent\textbf{Palabras clave:} \articleKeywords.
+
+\label{summary:end}
+\articleCheckOnePage

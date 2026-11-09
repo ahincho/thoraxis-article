@@ -1,0 +1,203 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% 3.3 Introducción
+% =============================================================================
+% Guía: contexto del problema y razones para abordarlo; usuarios o procesos
+% que se beneficiarían; objetivo general, objetivos específicos y alcance;
+% resultado esperado y forma de comprobar si se ha alcanzado.
+%
+% Primer avance (asesoría 1, 6-13 nov 2026): problema seleccionado, contexto
+% y evidencia inicial, objetivos y resultados esperados.
+% =============================================================================
+
+\section{Introducción}\label{sec:introduction}
+
+% Cifras y afirmaciones verificadas en los resúmenes de cada fuente (Crossref
+% y PubMed) el 8 de noviembre de 2026.
+\subsection{Contexto y motivación}\label{sec:context}
+Las enfermedades pulmonares están entre las principales causas de muerte en el
+mundo. En 2023, tres de las diez primeras afectaron al pulmón: la enfermedad
+pulmonar obstructiva crónica (EPOC), tercera con unos 3,6 millones de muertes;
+las infecciones de las vías respiratorias inferiores, cuarta con 2,7 millones;
+y el cáncer de tráquea, bronquios y pulmón, séptima con 1,8 millones
+\parencite{oms2026}. El cáncer de pulmón fue además, en 2024, el cáncer
+diagnosticado con más frecuencia, con casi 2,6 millones de casos nuevos, y la
+primera causa de muerte por cáncer, con unos 1,9 millones de fallecimientos
+\parencite{sung2026}.
+
+La tomografía computarizada (TC) permite examinar el pulmón en tres
+dimensiones y medirlo. La TC cuantitativa traduce la imagen en medidas
+numéricas automáticas, y una revisión sistemática de 185 estudios encontró que
+estas medidas aportan información pronóstica en las enfermedades pulmonares
+intersticiales \parencite{dixon2025}. Para obtenerlas, primero hay que separar
+el pulmón del resto del tórax; esa delimitación, llamada segmentación, es un
+paso crucial del análisis de imagen \parencite{hofmanninger2020}. En la
+fibrosis pulmonar idiopática, por ejemplo, un modelo de Deep Learning segmentó
+con éxito el 97,8~\% de las TC, de distintos fabricantes y con espesores de
+corte de 0,5 a 5~mm. En una cohorte de 446 pacientes, el volumen pulmonar
+obtenido se correlacionó con la capacidad vital forzada ($r = 0{,}82$), y un
+volumen menor se asoció con una menor supervivencia libre de progresión a dos
+años \parencite{thillai2024}.
+
+Estas medidas, sin embargo, todavía no se usan de forma rutinaria en la
+práctica clínica ni en los ensayos \parencite{thillai2024}, y no están
+estandarizadas: la heterogeneidad de los métodos impidió comparar entre sí los
+estudios de la revisión o combinarlos en un metaanálisis \parencite{dixon2025}.
+Los métodos automáticos clásicos, basados en umbrales, regiones o formas, no
+resuelven el problema, porque casi todos funcionan bien solo cuando el pulmón
+presenta poca o ninguna patología; derrames pleurales, consolidaciones y masas
+provocan segmentaciones inexactas \parencite{mansoor2015}. Delimitar el pulmón
+a mano tampoco es viable en la rutina: en el conjunto de \textcite{ma2021},
+delimitar el pulmón y la infección en una TC de 250 cortes tomó en promedio
+unos 400 minutos. Además, reunir grandes conjuntos de imágenes anotadas en una
+sola institución es poco práctico, sobre todo cuando los radiólogos están
+dedicados a la atención \parencite{ma2021}.
+
+El aprendizaje profundo ha cambiado este panorama. Con 70 casos de COVID-19
+anotados, \textcite{ma2021} obtienen un coeficiente de Dice promedio de 97,3~\%
+y 97,7~\% para el pulmón izquierdo y el derecho, aunque solo de 67,3~\% para la
+infección. \textcite{hofmanninger2020} muestran que, en casos difíciles, la
+precisión depende más de la diversidad de los datos de entrenamiento que de la
+arquitectura: una U-Net entrenada con datos clínicos de rutina de varias
+enfermedades alcanza un Dice de 0,98, frente a 0,94 de los métodos de
+referencia. TotalSegmentator, un modelo nnU-Net entrenado con 1204 estudios de
+TC de rutina, segmenta 104 estructuras anatómicas, con usos como la volumetría de órganos y la planificación de
+radioterapia \parencite{wasserthal2023}. Persisten, no obstante, dos
+dificultades: los métodos son difíciles de comparar porque se desarrollan con
+datos, configuraciones y métricas distintos \parencite{ma2021}, y la
+variabilidad propia del entrenamiento pone en duda la reproducibilidad de sus
+resultados \parencite{renard2020}.
+
+Thoraxis aborda la segmentación pulmonar en TC por cuatro razones:
+
+\begin{enumerate}
+    \item \textbf{Relevancia:} la segmentación del pulmón es el paso previo
+          para cuantificar enfermedades con una carga sanitaria alta.
+    \item \textbf{Viabilidad:} existen conjuntos de datos públicos con máscaras
+          de referencia y modelos publicados que sirven como referencia, lo
+          que permite evaluar la propuesta en condiciones comparables.
+    \item \textbf{Brecha:} la robustez ante pulmones con patología y una
+          evaluación reproducible y verificable siguen siendo problemas
+          abiertos.
+    \item \textbf{Proyección:} el pulmón es el primer caso; la misma
+          infraestructura de entrenamiento, evaluación y despliegue puede
+          extenderse a otras estructuras del tórax.
+\end{enumerate}
+
+Thoraxis es una herramienta de investigación y no un sistema de diagnóstico:
+sus resultados no reemplazan la evaluación de un especialista.
+\pendiente{evidencia local, si el equipo la incorpora: acceso a TC o a
+radiólogos en el Perú}
+
+\subsection{Usuarios y procesos beneficiados}\label{sec:users}
+Thoraxis está pensado para usuarios del ámbito de la investigación, en cuatro
+procesos:
+
+\begin{itemize}
+    \item \textbf{Equipos de investigación en imagen médica} que analizan
+          cohortes retrospectivas de TC y necesitan medir el volumen de cada
+          pulmón en muchos estudios, sin delimitarlos uno por uno.
+    \item \textbf{Radiólogos y anotadores} que preparan conjuntos de datos: en
+          lugar de trazar el pulmón desde cero, una tarea que puede tomar horas
+          por estudio \parencite{ma2021}, revisan y corrigen la máscara que
+          propone el modelo.
+    \item \textbf{Desarrolladores de otros modelos}, como detectores de nódulos
+          o de lesiones, que necesitan el pulmón delimitado como paso previo
+          de su análisis \parencite{hofmanninger2020}.
+    \item \textbf{Desarrolladores de sistemas} que quieren integrar la
+          segmentación en sus aplicaciones: el modelo se distribuye en ONNX y
+          se expone mediante una API, de modo que puede ejecutarse desde otros
+          lenguajes y marcos.
+\end{itemize}
+
+\noindent En todos los casos, el resultado lo revisa una persona. Thoraxis no
+está dirigido a la atención de pacientes: usarlo en la práctica clínica
+exigiría una validación clínica y las autorizaciones sanitarias
+correspondientes, que quedan fuera del alcance del proyecto.
+
+\subsection{Objetivos}\label{sec:objectives}
+
+\paragraph{Objetivo general.}
+Desarrollar y evaluar de forma reproducible un modelo de Deep Learning que
+segmente automáticamente el pulmón izquierdo y el derecho en tomografías
+computarizadas de tórax, incluidos pulmones con patología, e integrarlo en un
+prototipo que muestre la segmentación y calcule el volumen de cada pulmón.
+
+\paragraph{Objetivos específicos.}
+\begin{enumerate}
+    \item Preparar un conjunto de TC de tórax de fuentes públicas, con máscaras
+          de referencia de ambos pulmones, un preprocesamiento homogéneo y una
+          partición por paciente sin fugas entre entrenamiento, validación y
+          prueba.
+    \item Implementar una solución base, una U-Net 2D entrenada corte por
+          corte, y una propuesta que la mejore con contexto entre cortes
+          contiguos, aumentos de datos y datos de entrenamiento más diversos.
+    \item Evaluar ambas soluciones en las mismas condiciones, con el
+          coeficiente de Dice y la distancia de Hausdorff al percentil 95
+          (HD95) e intervalos de confianza por \textit{bootstrap}, en una
+          prueba interna y en una validación externa con datos de otras
+          instituciones, usando TotalSegmentator como referencia publicada.
+    \item Analizar los errores de la propuesta, en especial en pulmones con
+          patología, identificar sus limitaciones y estimar la incertidumbre de
+          cada segmentación para explicar dónde y cuándo el modelo es menos
+          confiable.
+    \item Exportar el modelo a ONNX y desplegarlo en un servicio de inferencia
+          y un visor web que muestren la máscara sobre los cortes y el volumen
+          de cada pulmón.
+    \item Registrar los experimentos, configuraciones y versiones con MLflow,
+          de modo que la evaluación pueda reproducirse desde los
+          repositorios.
+\end{enumerate}
+
+\subsection{Alcance}\label{sec:scope}
+El proyecto incluye:
+
+\begin{itemize}
+    \item Tomografías computarizadas de tórax de conjuntos de datos públicos y
+          anonimizados, descritos en la Sección~\ref{sec:data}.
+    \item La segmentación del pulmón izquierdo y del derecho, con modelos que
+          procesan cortes individuales (2D) o pilas de cortes contiguos
+          (2.5D).
+    \item El cálculo del volumen de cada pulmón a partir de la máscara y del
+          tamaño del vóxel.
+    \item Un mapa de incertidumbre por vóxel y una puntuación de confianza por
+          estudio, como forma de explicabilidad.
+    \item Un prototipo con un servicio de inferencia y un visor web para
+          cargar un estudio de prueba y revisar el resultado.
+\end{itemize}
+
+\noindent El proyecto no incluye:
+
+\begin{itemize}
+    \item La segmentación de lesiones, como la infección por COVID-19 o los
+          nódulos, ni de los lóbulos u otras estructuras del tórax, que quedan
+          como extensiones futuras.
+    \item El diagnóstico, la clasificación de enfermedades o cualquier
+          recomendación clínica.
+    \item El uso con datos de pacientes fuera de los conjuntos públicos, la
+          validación clínica prospectiva y la certificación como dispositivo
+          médico.
+    \item Otras modalidades de imagen, como la radiografía de tórax o la
+          resonancia magnética.
+\end{itemize}
+
+\subsection{Resultado esperado y criterio de éxito}\label{sec:expected-outcome}
+El resultado esperado es un modelo de segmentación de ambos pulmones,
+exportado a ONNX y versionado, un prototipo que lo usa, y el código, las
+configuraciones y los registros necesarios para reproducir su evaluación. Se
+considerará alcanzado si se cumplen los siguientes criterios:
+
+\begin{enumerate}
+    \item \textbf{Exactitud externa:} el Dice medio por paciente es de al
+          menos 0,95 para cada pulmón en la validación externa, reportado con
+          su intervalo de confianza del 95~\%.
+    \item \textbf{Mejora frente a la base:} la propuesta supera a la solución
+          base en Dice en la prueba interna y en la externa, y el intervalo de
+          confianza de la diferencia por pares no incluye el cero. La HD95 se
+          reporta y se compara de la misma forma.
+    \item \textbf{Prototipo funcional:} el prototipo procesa un estudio de
+          prueba de extremo a extremo y muestra la máscara y el volumen de cada
+          pulmón.
+    \item \textbf{Reproducibilidad:} otro integrante del equipo reproduce la
+          evaluación desde los repositorios y obtiene las mismas métricas.
+\end{enumerate}

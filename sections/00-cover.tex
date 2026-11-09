@@ -1,0 +1,47 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% 3.1 Portada
+% =============================================================================
+% La guía pide: título del proyecto, nombres completos de los integrantes,
+% nombre del programa y del líder académico, y fecha de entrega. Los datos
+% salen de config/metadata.tex.
+%
+% El logo (figures/utec-posgrado.png) se extrajo de la guía oficial del
+% proyecto integrador, que es la versión que UTEC usa en sus documentos del
+% programa. Su tamaño se cambia en \articleLogoWidth (config/metadata.tex).
+% =============================================================================
+
+\begin{titlepage}
+    \centering
+    % Espacio sobre el logo; los \vfill de abajo reparten el resto de la hoja.
+    \vspace*{\articleLogoTopSpace}
+    \includegraphics[width=\articleLogoWidth]{utec-posgrado}\par
+    \vspace{1.5em}
+    {\large\articleInstitution\par}
+    \vspace{0.4em}
+    {\large\articleProgram\par}
+    \vspace{0.4em}
+    {\normalsize\scshape\articleDocument\par}
+
+    \vfill
+
+    {\LARGE\bfseries\articleTitle\par}
+    \vspace{1em}
+    {\small\textit{\articleDisclaimer}\par}
+
+    \vfill
+
+    {\large\bfseries Integrantes\par}
+    \vspace{0.5em}
+    {\large\articleAuthors\par}
+
+    \vspace{2.5em}
+
+    {\large\bfseries\articleLeaderLabel\par}
+    \vspace{0.5em}
+    {\large\articleLeader\par}
+
+    \vfill
+
+    {\large\articleDate\par}
+\end{titlepage}

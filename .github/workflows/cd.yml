@@ -1,0 +1,80 @@
+# =============================================================================
+# CD - Compila el informe desde una versión del repo (solo manual)
+# =============================================================================
+# Se ejecuta únicamente a mano: Actions > "CD - Build Article" > Run workflow,
+# indicando, si se quiere, una versión. Sin versión usa la última del
+# repositorio (el último tag vX.Y.Z que creó release-please).
+#
+# Compila el informe desde ese tag con la receta reusable-latex-build.yml de
+# nova-shared-02-pipelines (fijada a la rama main) y deja el PDF como
+# artefacto de esta ejecución:
+#
+#   artefacto:  thoraxis-article-vX.Y.Z   (90 días)
+#   archivo:    thoraxis-article.pdf
+#
+# No crea releases ni tags: los releases son solo las versiones del repo. Un
+# tag es inmutable, así que la misma versión se puede volver a compilar cuando
+# haga falta (por ejemplo, para cada avance o la entrega final), también
+# después de que el artefacto caduque.
+# =============================================================================
+
+name: CD - Build Article
+run-name: "CD - Informe ${{ inputs.version || 'latest' }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versión del repo (por ejemplo v0.2.0). Vacío usa la última"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    name: Resolve version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Resolve repository version
+        id: version
+        env:
+          REQUESTED: ${{ inputs.version }}
+        run: |
+          if [ -n "$REQUESTED" ]; then
+            if ! [[ "$REQUESTED" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "::error::La versión debe tener el formato vX.Y.Z (recibido: $REQUESTED)"
+              exit 1
+            fi
+            VERSION="$REQUESTED"
+          else
+            VERSION="$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -n 1)"
+          fi
+          if [ -z "$VERSION" ] || ! git rev-parse -q --verify "refs/tags/$VERSION" > /dev/null; then
+            echo "::error::No existe la versión '${VERSION:-<ninguna>}'. Las versiones las crea release-please al mergear su PR de release."
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Compilando el informe desde $VERSION" | tee -a "$GITHUB_STEP_SUMMARY"
+
+  build:
+    name: Build (${{ needs.resolve.outputs.version }})
+    needs: resolve
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-latex-build.yml@main
+    with:
+      ref: ${{ needs.resolve.outputs.version }}
+      command: ./scripts/build.sh
+      artifact-name: thoraxis-article-${{ needs.resolve.outputs.version }}
+      artifact-path: build/thoraxis-article.pdf
+      retention-days: 90

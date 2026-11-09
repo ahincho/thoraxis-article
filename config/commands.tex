@@ -1,0 +1,39 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% Macros propias y metadatos del PDF
+% =============================================================================
+
+% --- Metadatos del PDF ---
+\hypersetup{
+    pdftitle={\articleTitle},
+    pdfauthor={\articleAuthorsPDF},
+    pdfsubject={\articleDocument{} - \articleProgram, \articleInstitution},
+    pdfkeywords={\articleKeywords},
+    pdflang={es-PE}
+}
+
+% --- Fuente de figuras y tablas ---
+% Debajo de cada figura o tabla:
+%   \articleSource{Elaboración propia.}
+%   \articleSource{Adaptado de \textcite{clave}.}
+\newcommand{\articleSource}[1]{%
+    \par\vspace{0.3em}%
+    {\footnotesize\centering\textit{Fuente:} #1\par}%
+}
+
+% --- Notas mientras se escribe ---
+% \pendiente{...} marca en rojo lo que falta. Antes de entregar no debe
+% quedar ninguno: los scripts de compilación avisan cuántos hay.
+\newcommand{\pendiente}[1]{\textcolor{red}{[PENDIENTE: #1]}}
+
+% --- Resumen ejecutivo de una página ---
+% La guía pide que no exceda una página. sections/01-executive-summary.tex
+% pone \label{summary:start} y \label{summary:end}; si caen en páginas
+% distintas, LaTeX emite un aviso que los scripts de compilación muestran.
+% El aviso dice "hoja" y no "página" a propósito: pdflatex no escribe bien
+% las tildes en el .log, y los scripts buscan este texto exacto.
+\newcommand{\articleCheckOnePage}{%
+    \ifnum\getpagerefnumber{summary:end}>\getpagerefnumber{summary:start}\relax
+        \PackageWarningNoLine{thoraxis}{El resumen ejecutivo excede una hoja}%
+    \fi
+}

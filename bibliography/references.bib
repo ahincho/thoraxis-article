@@ -1,0 +1,526 @@
+% =============================================================================
+% Referencias bibliográficas (APA 7, biblatex-apa + biber)
+% =============================================================================
+% Claves: apellido (u organización) + año, en minúsculas: ronneberger2015.
+%
+% La guía pide incluir fuentes bibliográficas, conjuntos de datos, modelos,
+% documentación y código de terceros utilizados. Para cada conjunto de datos,
+% citar el artículo o la página que pide su licencia.
+%
+% Organizaciones como autor: entre dobles llaves para que APA no las trate
+% como "Apellido, Nombre".
+%
+% Verificar autores, revista, volumen, páginas y DOI en Crossref antes de
+% agregar una entrada.
+% =============================================================================
+
+% -----------------------------------------------------------------------------
+% MLOps y ciclo de vida
+% -----------------------------------------------------------------------------
+
+% Lectura del curso (Lecturas/Machine-Learning-Operations-MLOps.pdf, versión
+% de arXiv). Se cita la versión publicada, verificada en Crossref.
+@article{kreuzberger2023,
+  author       = {Kreuzberger, Dominik and Kühl, Niklas and Hirschl, Sebastian},
+  title        = {Machine learning operations ({MLOps}): Overview, definition, and architecture},
+  journaltitle = {IEEE Access},
+  volume       = {11},
+  pages        = {31866--31879},
+  date         = {2023},
+  doi          = {10.1109/ACCESS.2023.3262138},
+}
+
+% -----------------------------------------------------------------------------
+% Herramientas
+% -----------------------------------------------------------------------------
+
+% Documentación oficial; título verificado en la página el 8 de noviembre de
+% 2026. Sin fecha de publicación: APA la cita como "s.f.".
+@online{mlflow,
+  author       = {{MLflow Project}},
+  title        = {{MLflow} documentation},
+  url          = {https://mlflow.org/docs/latest/},
+  urldate      = {2026-11-08},
+}
+
+% Límites y condiciones de la edición gratuita (página actualizada el 18 de
+% octubre de 2026, consultada el 8 de noviembre de 2026).
+@online{databricksfree,
+  author       = {{Databricks}},
+  title        = {Databricks Free Edition limitations},
+  date         = {2026-10-18},
+  url          = {https://docs.databricks.com/aws/en/getting-started/free-edition-limitations},
+  urldate      = {2026-11-08},
+}
+
+% Precios de cómputo de Databricks en AWS, plan Premium, región US East
+% (N. Virginia). Las tarifas se cargan con JavaScript; consultadas en el
+% navegador el 8 de noviembre de 2026. La prueba de 14 días con hasta 400 USD
+% figura en https://www.databricks.com/try-databricks.
+@online{databrickspricing,
+  author       = {{Databricks}},
+  title        = {Compute for data science: Pricing},
+  url          = {https://www.databricks.com/product/pricing/datascience-ml},
+  urldate      = {2026-11-08},
+}
+
+@online{databricksjobs,
+  author       = {{Databricks}},
+  title        = {Lakeflow Jobs: Pricing},
+  url          = {https://www.databricks.com/product/pricing/lakeflow-jobs},
+  urldate      = {2026-11-08},
+}
+
+% Planes de DagsHub. La página da dos cifras de almacenamiento para el plan
+% gratuito (20 GB en la lista y 200 GB en la tabla); el artículo cita ambas.
+@online{dagshubpricing,
+  author       = {{DagsHub}},
+  title        = {Pricing},
+  url          = {https://dagshub.com/pricing/},
+  urldate      = {2026-11-08},
+}
+
+% Tasas de DBU por instancia (g4dn.xlarge y g5.xlarge, Jobs Compute y
+% All-Purpose Compute, plan Premium). Datos de la calculadora oficial,
+% consultados el 8 de noviembre de 2026.
+@online{databrickscalculator,
+  author       = {{Databricks}},
+  title        = {Pricing calculator},
+  url          = {https://www.databricks.com/product/pricing/product-pricing/instance-types},
+  urldate      = {2026-11-08},
+}
+
+% Precio por hora de GPU de AI Runtime (A10: 2,50 USD; H100: 7,00 USD), en
+% vista previa, AWS, plan Premium.
+@online{databricksairuntime,
+  author       = {{Databricks}},
+  title        = {{AI} Runtime: Pricing},
+  url          = {https://www.databricks.com/product/pricing/ai-runtime},
+  urldate      = {2026-11-08},
+}
+
+% Prueba gratuita de 14 días con hasta 400 USD de crédito, sin tarjeta.
+@online{databrickstrial,
+  author       = {{Databricks}},
+  title        = {Try Databricks},
+  url          = {https://www.databricks.com/try-databricks},
+  urldate      = {2026-11-08},
+}
+
+% Precio bajo demanda en US East (N. Virginia), Linux: g4dn.xlarge 0,526 USD/h
+% y g5.xlarge 1,006 USD/h.
+@online{awsec2,
+  author       = {{Amazon Web Services}},
+  title        = {Amazon {EC2} on-demand pricing},
+  url          = {https://aws.amazon.com/ec2/pricing/on-demand/},
+  urldate      = {2026-11-08},
+}
+
+% Planes de pago de Colab. La página no publica el consumo de unidades por GPU.
+@online{colabpricing,
+  author       = {{Google}},
+  title        = {Precios de los servicios pagados de Colab},
+  url          = {https://colab.research.google.com/signup},
+  urldate      = {2026-11-08},
+}
+
+% -----------------------------------------------------------------------------
+% Contexto del problema
+% -----------------------------------------------------------------------------
+% Verificadas en Crossref, PubMed y en las páginas de la OMS y de la IARC el 8 de noviembre de 2026.
+
+% Nota descriptiva de la OMS publicada el 2 de octubre de 2026, con
+% estimaciones de 2023 (Global Health Estimates).
+@online{oms2026,
+  author       = {{Organización Mundial de la Salud}},
+  title        = {Las 10 causas principales de defunción},
+  date         = {2026-10-02},
+  url          = {https://www.who.int/es/news-room/fact-sheets/detail/the-top-10-causes-of-death},
+  urldate      = {2026-11-08},
+}
+
+% GLOBOCAN 2024, publicado en línea el 8 de julio de 2026.
+@article{sung2026,
+  author       = {Sung, Hyuna and Filho, Adalberto M. and Laversanne, Mathieu and Ferlay, Jacques and Siegel, Rebecca L. and Soerjomataram, Isabelle and Jemal, Ahmedin and Bray, Freddie},
+  title        = {Global cancer statistics 2024: {GLOBOCAN} estimates of incidence and mortality worldwide for 34 cancers in 186 countries},
+  journaltitle = {CA: A Cancer Journal for Clinicians},
+  volume       = {76},
+  number       = {4},
+  eid          = {e70090},
+  date         = {2026},
+  doi          = {10.3322/caac.70090},
+}
+
+@article{mansoor2015,
+  author       = {Mansoor, Awais and Bagci, Ulas and Foster, Brent and Xu, Ziyue and Papadakis, Georgios Z. and Folio, Les R. and Udupa, Jayaram K. and Mollura, Daniel J.},
+  title        = {Segmentation and image analysis of abnormal lungs at {CT}: Current approaches, challenges, and future trends},
+  journaltitle = {RadioGraphics},
+  volume       = {35},
+  number       = {4},
+  pages        = {1056--1076},
+  date         = {2015},
+  doi          = {10.1148/rg.2015140232},
+}
+
+% TC cuantitativa: estudio de 2024 y revisión sistemática de 2025.
+@article{thillai2024,
+  author       = {Thillai, Muhunthan and Oldham, Justin M. and Ruggiero, Alessandro and Kanavati, Fahdi and McLellan, Tom and Saini, Gauri and Johnson, Simon R. and Ble, Francois-Xavier and Azim, Adnan and Ostridge, Kristoffer and Platt, Adam and Belvisi, Maria and Maher, Toby M. and Molyneaux, Philip L.},
+  title        = {Deep learning-based segmentation of computed tomography scans predicts disease progression and mortality in idiopathic pulmonary fibrosis},
+  journaltitle = {American Journal of Respiratory and Critical Care Medicine},
+  volume       = {210},
+  number       = {4},
+  pages        = {465--472},
+  date         = {2024},
+  doi          = {10.1164/rccm.202311-2185OC},
+}
+
+@article{dixon2025,
+  author       = {Dixon, Giles and Thould, Hannah and Wells, Matthew and Tsaneva-Atanasova, Krasimira and Scotton, Chris J. and Gibbons, Michael A. and Barratt, Shaney L. and Rodrigues, Jonathan C. L.},
+  title        = {A systematic review of the role of quantitative {CT} in the prognostication and disease monitoring of interstitial lung disease},
+  journaltitle = {European Respiratory Review},
+  volume       = {34},
+  number       = {176},
+  eid          = {240194},
+  date         = {2025},
+  doi          = {10.1183/16000617.0194-2024},
+}
+
+@article{ma2021,
+  author       = {Ma, Jun and Wang, Yixin and An, Xingle and Ge, Cheng and Yu, Ziqi and Chen, Jianan and Zhu, Qiongjie and Dong, Guoqiang and He, Jian and He, Zhiqiang and Cao, Tianjia and Zhu, Yuntao and Nie, Ziwei and Yang, Xiaoping},
+  title        = {Toward data-efficient learning: A benchmark for {COVID-19} {CT} lung and infection segmentation},
+  journaltitle = {Medical Physics},
+  volume       = {48},
+  number       = {3},
+  pages        = {1197--1210},
+  date         = {2021},
+  doi          = {10.1002/mp.14676},
+}
+
+@article{hofmanninger2020,
+  author       = {Hofmanninger, Johannes and Prayer, Forian and Pan, Jeanny and Röhrich, Sebastian and Prosch, Helmut and Langs, Georg},
+  title        = {Automatic lung segmentation in routine imaging is primarily a data diversity problem, not a methodology problem},
+  journaltitle = {European Radiology Experimental},
+  volume       = {4},
+  eid          = {50},
+  date         = {2020},
+  doi          = {10.1186/s41747-020-00173-2},
+}
+
+@article{wasserthal2023,
+  author       = {Wasserthal, Jakob and Breit, Hanns-Christian and Meyer, Manfred T. and Pradella, Maurice and Hinck, Daniel and Sauter, Alexander W. and Heye, Tobias and Boll, Daniel T. and Cyriac, Joshy and Yang, Shan and Bach, Michael and Segeroth, Martin},
+  title        = {{TotalSegmentator}: Robust segmentation of 104 anatomic structures in {CT} images},
+  journaltitle = {Radiology: Artificial Intelligence},
+  volume       = {5},
+  number       = {5},
+  eid          = {e230024},
+  date         = {2023},
+  doi          = {10.1148/ryai.230024},
+}
+
+@article{renard2020,
+  author       = {Renard, Félix and Guedria, Soulaimane and {De Palma}, Noel and Vuillerme, Nicolas},
+  title        = {Variability and reproducibility in deep learning for medical image segmentation},
+  journaltitle = {Scientific Reports},
+  volume       = {10},
+  eid          = {13724},
+  date         = {2020},
+  doi          = {10.1038/s41598-020-69920-0},
+}
+
+% -----------------------------------------------------------------------------
+% Conjuntos de datos
+% -----------------------------------------------------------------------------
+% Verificados en Zenodo (API de registros) y en la página de TCIA el 8 de
+% noviembre de 2026. Para los conjuntos se cita también el artículo que piden
+% sus autores (wasserthal2023, ma2021 y yang2018).
+
+% Versión 3.0.0 (10 de septiembre de 2026), 1939 estudios. El DOI conceptual
+% de todas las versiones es 10.5281/zenodo.6802613.
+@dataset{wasserthal2023dataset,
+  author       = {Wasserthal, Jakob},
+  title        = {Dataset with segmentations of 117 important anatomical structures in 1939 {CT} images},
+  version      = {3.0.0},
+  publisher    = {Zenodo},
+  titleaddon   = {Conjunto de datos},
+  date         = {2026},
+  doi          = {10.5281/zenodo.22688904},
+}
+
+% Licencia CC BY 4.0 según Zenodo; el artículo y el repositorio del benchmark
+% indican CC BY-NC-SA.
+@dataset{ma2020,
+  author       = {Ma, Jun and Ge, Cheng and Wang, Yixin and An, Xingle and Gao, Jiantao and Yu, Ziqi and Zhang, Minqing and Liu, Xin and Deng, Xueyuan and Cao, Shucheng and Wei, Hao and Mei, Sen and Yang, Xiaoyu and Nie, Ziwei and Li, Chen and Tian, Lu and Zhu, Yuntao and Zhu, Qiongjie and Dong, Guoqiang and He, Jian},
+  title        = {{COVID-19} {CT} lung and infection segmentation dataset},
+  version      = {1.0},
+  publisher    = {Zenodo},
+  titleaddon   = {Conjunto de datos},
+  date         = {2020},
+  doi          = {10.5281/zenodo.3757476},
+}
+
+% Cita de datos que exige TCIA (versión 3, licencia CC BY 3.0).
+@dataset{yang2017,
+  author       = {Yang, Jinzhong and Sharp, Greg and Veeraraghavan, Harini and {van Elmpt}, Wouter and Dekker, Andre and Lustberg, Tim and Gooding, Mark},
+  title        = {Data from {Lung CT Segmentation Challenge} ({LCTSC})},
+  version      = {3},
+  titleaddon   = {Conjunto de datos},
+  publisher    = {The Cancer Imaging Archive},
+  date         = {2017},
+  doi          = {10.7937/K9/TCIA.2017.3R3FVZ08},
+}
+
+@article{yang2018,
+  author       = {Yang, Jinzhong and Veeraraghavan, Harini and Armato, Samuel G. and Farahani, Keyvan and Kirby, Justin S. and Kalpathy-Kramer, Jayashree and {van Elmpt}, Wouter and Dekker, Andre and Han, Xiao and Feng, Xue and Aljabar, Paul and Oliveira, Bruno and {van der Heyden}, Brent and Zamdborg, Leonid and Lam, Dao and Gooding, Mark and Sharp, Gregory C.},
+  title        = {Autosegmentation for thoracic radiation treatment planning: A grand challenge at {AAPM} 2017},
+  journaltitle = {Medical Physics},
+  volume       = {45},
+  number       = {10},
+  pages        = {4568--4581},
+  date         = {2018},
+  doi          = {10.1002/mp.13141},
+}
+
+% -----------------------------------------------------------------------------
+% Modelos y herramientas de segmentación
+% -----------------------------------------------------------------------------
+% Verificados en Crossref y en la API de arXiv el 8 de noviembre de 2026.
+
+@inproceedings{ronneberger2015,
+  author       = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  title        = {{U-Net}: Convolutional networks for biomedical image segmentation},
+  booktitle    = {Medical image computing and computer-assisted intervention -- {MICCAI} 2015},
+  editor       = {Navab, Nassir and Hornegger, Joachim and Wells, William M. and Frangi, Alejandro F.},
+  pages        = {234--241},
+  publisher    = {Springer},
+  date         = {2015},
+  doi          = {10.1007/978-3-319-24574-4_28},
+}
+
+@article{isensee2021,
+  author       = {Isensee, Fabian and Jaeger, Paul F. and Kohl, Simon A. A. and Petersen, Jens and Maier-Hein, Klaus H.},
+  title        = {{nnU-Net}: A self-configuring method for deep learning-based biomedical image segmentation},
+  journaltitle = {Nature Methods},
+  volume       = {18},
+  number       = {2},
+  pages        = {203--211},
+  date         = {2021},
+  doi          = {10.1038/s41592-020-01008-z},
+}
+
+% Preimpresión de arXiv. Autores según los metadatos de arXiv, que repiten a
+% Andriy Myronenko; aquí aparece una sola vez (56 autores).
+@misc{cardoso2022,
+  author       = {Cardoso, M. Jorge and Li, Wenqi and Brown, Richard and Ma, Nic and Kerfoot, Eric and Wang, Yiheng and Murrey, Benjamin and Myronenko, Andriy and Zhao, Can and Yang, Dong and Nath, Vishwesh and He, Yufan and Xu, Ziyue and Hatamizadeh, Ali and Zhu, Wentao and Liu, Yun and Zheng, Mingxin and Tang, Yucheng and Yang, Isaac and Zephyr, Michael and Hashemian, Behrooz and Alle, Sachidanand and {Zalbagi Darestani}, Mohammad and Budd, Charlie and Modat, Marc and Vercauteren, Tom and Wang, Guotai and Li, Yiwen and Hu, Yipeng and Fu, Yunguan and Gorman, Benjamin and Johnson, Hans and Genereaux, Brad and Erdal, Barbaros S. and Gupta, Vikash and Diaz-Pinto, Andres and Dourson, Andre and Maier-Hein, Lena and Jaeger, Paul F. and Baumgartner, Michael and Kalpathy-Cramer, Jayashree and Flores, Mona and Kirby, Justin and Cooper, Lee A. D. and Roth, Holger R. and Xu, Daguang and Bericat, David and Floca, Ralf and Zhou, S. Kevin and Shuaib, Haris and Farahani, Keyvan and Maier-Hein, Klaus H. and Aylward, Stephen and Dogra, Prerna and Ourselin, Sebastien and Feng, Andrew},
+  title        = {{MONAI}: An open-source framework for deep learning in healthcare},
+  date         = {2022},
+  eprinttype   = {arxiv},
+  eprint       = {2211.02701},
+  doi          = {10.48550/arXiv.2211.02701},
+}
+
+% -----------------------------------------------------------------------------
+% Entrenamiento continuo y retroalimentación
+% -----------------------------------------------------------------------------
+% Páginas consultadas el 8 de noviembre de 2026. Versiones vigentes: Evidently
+% 0.7.23 (11 de septiembre de 2026), DVC 3.67.1 (31 de marzo de 2026, proyecto
+% a cargo de lakeFS desde noviembre de 2025) y MONAI Label 0.8.5 (18 de
+% octubre de 2023; el repositorio sigue activo).
+
+@article{diazpinto2024,
+  author       = {Diaz-Pinto, Andres and Alle, Sachidanand and Nath, Vishwesh and Tang, Yucheng and Ihsani, Alvin and Asad, Muhammad and Pérez-García, Fernando and Mehta, Pritesh and Li, Wenqi and Flores, Mona and Roth, Holger R. and Vercauteren, Tom and Xu, Daguang and Dogra, Prerna and Ourselin, Sebastien and Feng, Andrew and Cardoso, M. Jorge},
+  title        = {{MONAI Label}: A framework for {AI}-assisted interactive labeling of {3D} medical images},
+  journaltitle = {Medical Image Analysis},
+  volume       = {95},
+  eid          = {103207},
+  date         = {2024},
+  doi          = {10.1016/j.media.2024.103207},
+}
+
+% Kaggle: GPU P100 o dos T4 gratis, sesiones de 12 horas, cuota semanal y
+% notebooks programados o disparados al actualizar un conjunto de datos.
+@online{kagglenotebooks,
+  author       = {{Kaggle}},
+  title        = {Notebooks documentation},
+  url          = {https://www.kaggle.com/docs/notebooks},
+  urldate      = {2026-11-08},
+}
+
+% kaggle kernels push con enable_gpu en kernel-metadata.json.
+@online{kagglecli,
+  author       = {{Kaggle}},
+  title        = {Kaggle {CLI}: Kernels},
+  url          = {https://github.com/Kaggle/kaggle-cli/blob/main/docs/kernels.md},
+  urldate      = {2026-11-08},
+}
+
+% Runners con GPU T4: 0,052 USD/min en Linux, solo planes Team y Enterprise.
+@online{githubrunners,
+  author       = {{GitHub}},
+  title        = {Actions runner pricing},
+  url          = {https://docs.github.com/en/billing/reference/actions-runner-pricing},
+  urldate      = {2026-11-08},
+}
+
+@online{colabschedule,
+  author       = {{Google Cloud}},
+  title        = {Schedule a notebook run in {Colab Enterprise}},
+  url          = {https://docs.cloud.google.com/colab/docs/schedule-notebook-run},
+  urldate      = {2026-11-08},
+}
+
+@online{dvc,
+  author       = {{DVC}},
+  title        = {{DVC}: Data version control},
+  url          = {https://dvc.org/},
+  urldate      = {2026-11-08},
+}
+
+% Alias de modelos (@champion, @challenger) en Unity Catalog.
+@online{databricksaliases,
+  author       = {{Databricks}},
+  title        = {Manage model lifecycle in {Unity Catalog}},
+  url          = {https://docs.databricks.com/aws/en/machine-learning/manage-model-lifecycle/},
+  urldate      = {2026-11-08},
+}
+
+@online{evidently,
+  author       = {{Evidently AI}},
+  title        = {What is {Evidently}?},
+  url          = {https://docs.evidentlyai.com/},
+  urldate      = {2026-11-08},
+}
+
+% Monitoreo del aplicativo. Consultadas el 8 de noviembre de 2026.
+@online{opentelemetry,
+  author       = {{OpenTelemetry}},
+  title        = {What is {OpenTelemetry}?},
+  url          = {https://opentelemetry.io/docs/what-is-opentelemetry/},
+  urldate      = {2026-11-08},
+}
+
+@online{otelfastapi,
+  author       = {{OpenTelemetry}},
+  title        = {{OpenTelemetry FastAPI} instrumentation (versión 0.66b2)},
+  date         = {2026-10-29},
+  url          = {https://pypi.org/project/opentelemetry-instrumentation-fastapi/},
+  urldate      = {2026-11-08},
+}
+
+% Visor web. Consultadas el 8 de noviembre de 2026.
+@online{angular,
+  author       = {{Angular}},
+  title        = {Versioning and releases},
+  url          = {https://angular.dev/reference/releases},
+  urldate      = {2026-11-08},
+}
+
+@online{niivue,
+  author       = {{NiiVue}},
+  title        = {Getting started},
+  url          = {https://niivue.com/docs/},
+  urldate      = {2026-11-08},
+}
+
+@online{niivuedicom,
+  author       = {{NiiVue}},
+  title        = {{DICOM}},
+  url          = {https://niivue.com/docs/dicom/},
+  urldate      = {2026-11-08},
+}
+
+@online{grafanapricing,
+  author       = {{Grafana Labs}},
+  title        = {Grafana pricing},
+  url          = {https://grafana.com/pricing/},
+  urldate      = {2026-11-08},
+}
+
+% -----------------------------------------------------------------------------
+% Explicabilidad e incertidumbre
+% -----------------------------------------------------------------------------
+% Verificadas en Crossref, PubMed y Semantic Scholar el 8 de noviembre de 2026.
+
+@article{saporta2022,
+  author       = {Saporta, Adriel and Gui, Xiaotong and Agrawal, Ashwin and Pareek, Anuj and Truong, Steven Q. H. and Nguyen, Chanh D. T. and Ngo, Van-Doan and Seekins, Jayne and Blankenberg, Francis G. and Ng, Andrew Y. and Lungren, Matthew P. and Rajpurkar, Pranav},
+  title        = {Benchmarking saliency methods for chest {X}-ray interpretation},
+  journaltitle = {Nature Machine Intelligence},
+  volume       = {4},
+  number       = {10},
+  pages        = {867--878},
+  date         = {2022},
+  doi          = {10.1038/s42256-022-00536-x},
+}
+
+@article{arun2021,
+  author       = {Arun, Nishanth and Gaw, Nathan and Singh, Praveer and Chang, Ken and Aggarwal, Mehak and Chen, Bryan and Hoebel, Katharina and Gupta, Sharut and Patel, Jay and Gidwani, Mishka and Adebayo, Julius and Li, Matthew D. and Kalpathy-Cramer, Jayashree},
+  title        = {Assessing the trustworthiness of saliency maps for localizing abnormalities in medical imaging},
+  journaltitle = {Radiology: Artificial Intelligence},
+  volume       = {3},
+  number       = {6},
+  eid          = {e200267},
+  date         = {2021},
+  doi          = {10.1148/ryai.2021200267},
+}
+
+@article{gipiskis2024,
+  author       = {Gipiškis, Rokas and Tsai, Chun-Wei and Kurasova, Olga},
+  title        = {Explainable {AI} ({XAI}) in image segmentation in medicine, industry, and beyond: A survey},
+  journaltitle = {ICT Express},
+  volume       = {10},
+  number       = {6},
+  pages        = {1331--1354},
+  date         = {2024},
+  doi          = {10.1016/j.icte.2024.09.008},
+}
+
+@article{lambert2024,
+  author       = {Lambert, Benjamin and Forbes, Florence and Doyle, Senan and Dehaene, Harmonie and Dojat, Michel},
+  title        = {Trustworthy clinical {AI} solutions: A unified review of uncertainty quantification in deep learning models for medical image analysis},
+  journaltitle = {Artificial Intelligence in Medicine},
+  volume       = {150},
+  eid          = {102830},
+  date         = {2024},
+  doi          = {10.1016/j.artmed.2024.102830},
+}
+
+@article{wang2019,
+  author       = {Wang, Guotai and Li, Wenqi and Aertsen, Michael and Deprest, Jan and Ourselin, Sébastien and Vercauteren, Tom},
+  title        = {Aleatoric uncertainty estimation with test-time augmentation for medical image segmentation with convolutional neural networks},
+  journaltitle = {Neurocomputing},
+  volume       = {338},
+  pages        = {34--45},
+  date         = {2019},
+  doi          = {10.1016/j.neucom.2019.01.103},
+}
+
+@article{mehrtash2020,
+  author       = {Mehrtash, Alireza and Wells, William M. and Tempany, Clare M. and Abolmaesumi, Purang and Kapur, Tina},
+  title        = {Confidence calibration and predictive uncertainty estimation for deep medical image segmentation},
+  journaltitle = {IEEE Transactions on Medical Imaging},
+  volume       = {39},
+  number       = {12},
+  pages        = {3868--3878},
+  date         = {2020},
+  doi          = {10.1109/TMI.2020.3006437},
+}
+
+@article{vandervelden2022,
+  author       = {{van der Velden}, Bas H. M. and Kuijf, Hugo J. and Gilhuijs, Kenneth G. A. and Viergever, Max A.},
+  title        = {Explainable artificial intelligence ({XAI}) in deep learning-based medical image analysis},
+  journaltitle = {Medical Image Analysis},
+  volume       = {79},
+  eid          = {102470},
+  date         = {2022},
+  doi          = {10.1016/j.media.2022.102470},
+}
+
+@inproceedings{vinogradova2020,
+  author       = {Vinogradova, Kira and Dibrov, Alexandr and Myers, Gene},
+  title        = {Towards interpretable semantic segmentation via gradient-weighted class activation mapping (student abstract)},
+  booktitle    = {Proceedings of the {AAAI} Conference on Artificial Intelligence},
+  volume       = {34},
+  number       = {10},
+  pages        = {13943--13944},
+  date         = {2020},
+  doi          = {10.1609/aaai.v34i10.7244},
+}

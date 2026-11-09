@@ -1,0 +1,27 @@
+# =============================================================================
+# Release - Versión del repositorio con release-please
+# =============================================================================
+# En cada push a main, release-please (receta compartida de nova-shared-02-
+# pipelines, fijada a la rama main) lee los Conventional Commits y abre o
+# actualiza un PR de release con la próxima versión y el CHANGELOG. Al mergear
+# ese PR crea el release del repo, vX.Y.Z, con las notas y sin PDF.
+#
+# La versión es del repositorio. El informe no se compila aquí: se obtiene
+# bajo demanda con cd.yml, que toma la última versión del repo.
+# =============================================================================
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-release-please.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
