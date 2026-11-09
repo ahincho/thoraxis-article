@@ -1,0 +1,50 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% Metadatos del informe
+% =============================================================================
+% Todo lo que aparece en la portada (sección 3.1 de la guía), en el
+% encabezado y en las propiedades del PDF. Cambiar un dato aquí lo actualiza
+% en todos los lugares donde se usa.
+% =============================================================================
+
+% --- Programa ---
+\newcommand{\articleInstitution}{Universidad de Ingeniería y Tecnología (UTEC) -- Posgrado}
+\newcommand{\articleProgram}{Programa en Deep Learning}
+\newcommand{\articleDocument}{Proyecto Integrador}
+\newcommand{\articleLeaderLabel}{Líder Académico}
+\newcommand{\articleLeader}{Victor Flores Benites}
+% Ancho del logo de UTEC Posgrado en la portada y alto en el encabezado. Si
+% el del encabezado crece, subir también headheight en config/preamble.tex.
+% El alto del encabezado es una longitud (\setlength) y no una macro, porque
+% se usa en cálculos: "0.5\articleHeaderLogoHeight" con una macro "16pt" se
+% leería como 0.516pt.
+\newcommand{\articleLogoWidth}{9cm}
+\newcommand{\articleLogoTopSpace}{2.5cm}
+\newlength{\articleHeaderLogoHeight}
+\setlength{\articleHeaderLogoHeight}{16pt}
+
+% Fecha de entrega. La final es el sábado 20 de marzo de 2027; para cada
+% avance, cambiarla por la fecha de la asesoría correspondiente.
+\newcommand{\articleDate}{20 de marzo de 2027}
+
+% --- Trabajo ---
+\newcommand{\articleTitle}{Thoraxis: Segmentación de Estructuras del Tórax
+    en Tomografía Computarizada con Deep Learning}
+\newcommand{\articleShortTitle}{Thoraxis}
+\newcommand{\articleDisclaimer}{Herramienta de investigación. No está
+    destinada al diagnóstico clínico.}
+
+% --- Integrantes ---
+% La guía pide equipos de tres integrantes con nombres completos.
+\newcommand{\articleAuthors}{%
+    Angel Eduardo Hincho Jove\\
+    \pendiente{integrante 2}\\
+    \pendiente{integrante 3}%
+}
+% Versión sin marcas para las propiedades del PDF.
+\newcommand{\articleAuthorsPDF}{Angel Eduardo Hincho Jove}
+
+% --- Palabras clave (resumen ejecutivo y metadatos del PDF) ---
+\newcommand{\articleKeywords}{Deep Learning, Integración Continua, Entrega Continua,
+    Despliegue Continuo, MLOps, Segmentación de Imágenes Médicas, Tomografía Computarizada,
+    Tórax, Pulmón, Reproducibilidad, Explicabilidad}

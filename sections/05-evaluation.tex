@@ -1,0 +1,65 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% 3.6 Evaluación de la solución
+% =============================================================================
+% Guía: métricas y criterios adecuados para la tarea, con su justificación;
+% comparación entre la solución base y la propuesta en las mismas
+% condiciones; resultados con tablas, gráficos y ejemplos de aciertos y
+% errores; tiempo de respuesta, consumo de recursos o costo cuando sean
+% relevantes. Debe incluir casos representativos del uso previsto.
+%
+% Segundo avance (asesoría 2, 7-11 dic 2026): diseño de la solución,
+% métricas y procedimiento de evaluación; solución base y primeros
+% resultados.
+% =============================================================================
+
+\section{Evaluación de la solución}\label{sec:evaluation}
+
+\subsection{Métricas y criterios}\label{sec:metrics}
+\pendiente{métricas de segmentación elegidas y por qué son adecuadas}
+
+\subsection{Comparación con la solución base}\label{sec:comparison}
+\pendiente{tabla con la solución base y la propuesta, evaluadas sobre el mismo
+conjunto de prueba}
+
+% Plantilla de tabla (descomentar cuando haya resultados):
+% \begin{table}[htbp]
+%     \centering
+%     \caption{Comparación entre la solución base y la propuesta.}\label{tab:comparison}
+%     \begin{tabular}{lcc}
+%         \toprule
+%         Modelo & Métrica 1 & Métrica 2 \\
+%         \midrule
+%         Solución base & -- & -- \\
+%         Propuesta     & -- & -- \\
+%         \bottomrule
+%     \end{tabular}
+%     \articleSource{Elaboración propia.}
+% \end{table}
+
+\subsection{Ejemplos de aciertos y errores}\label{sec:examples}
+\pendiente{casos representativos del uso previsto: cortes con la máscara
+predicha frente a la de referencia, incluidos casos de fallo}
+
+\subsection{Evaluación de la incertidumbre}\label{sec:uncertainty-eval}
+La incertidumbre (Sección~\ref{sec:explainability}) se evalúa con el mismo
+conjunto de prueba interno y con la validación externa, en tres pruebas:
+
+\begin{enumerate}
+    \item \textbf{Relación con el error por caso:} correlación de Spearman
+          entre la puntuación de confianza de cada estudio y su Dice. Una
+          correlación clara indica que la puntuación sirve para marcar los
+          casos que requieren revisión.
+    \item \textbf{Relación con el error por vóxel:} capacidad del mapa de
+          incertidumbre para distinguir los vóxeles mal segmentados de los
+          bien segmentados, medida con el área bajo la curva ROC.
+    \item \textbf{Calibración:} diagrama de confiabilidad que compara las
+          probabilidades del modelo con la proporción real de aciertos, porque
+          las U-Net tienden a ser demasiado confiadas \parencite{mehrtash2020}.
+\end{enumerate}
+
+\pendiente{resultados de las tres pruebas, con la solución base y la
+propuesta}
+
+\subsection{Tiempo de respuesta y recursos}\label{sec:resources}
+\pendiente{tiempo de inferencia por estudio, memoria y costo de uso}

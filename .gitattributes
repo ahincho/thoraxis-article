@@ -1,0 +1,34 @@
+# Normaliza los fines de línea para que sean iguales en todos los sistemas
+# operativos (Windows usa CRLF; Linux y macOS, LF).
+
+# Scripts y configs Unix: LF
+*.sh          text eol=lf
+.gitattributes eol=lf
+.gitignore    text eol=lf
+.latexmkrc    text eol=lf
+.chktexrc     text eol=lf
+
+# Workflows YAML (LF es el estándar en GitHub Actions)
+*.yml         text eol=lf
+*.yaml        text eol=lf
+
+# Scripts de Windows: CRLF
+*.ps1         text eol=crlf
+
+# LaTeX: LF
+*.tex         text eol=lf
+*.bib         text eol=lf
+
+# Markdown y texto general: LF
+*.md          text eol=lf
+LICENSE       text eol=lf
+
+# Diagramas: LF
+*.excalidraw  text eol=lf
+*.svg         text eol=lf
+
+# Binarios: sin normalización
+*.pdf         binary
+*.png         binary
+*.jpg         binary
+*.jpeg        binary

@@ -1,0 +1,159 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% Preamble - Clase, paquetes y formato del informe
+% Thoraxis - Proyecto Integrador del Programa en Deep Learning (UTEC Posgrado)
+% =============================================================================
+% Artículo a una sola columna, sin límite de páginas. La guía del proyecto
+% integrador (Documentos/Proyecto-Integrador-Grupal-Deep-Learning.pdf) fija
+% las secciones y que solo el resumen ejecutivo no exceda una página, pero no
+% el formato visual.
+% El aspecto (Century Schoolbook) se toma de la tesis del
+% autor (github.com/ahincho/thesis) para mantener un estilo propio y
+% coherente.
+%
+% Todo lo que define el aspecto vive en este archivo; el texto vive en
+% sections/.
+% =============================================================================
+
+\documentclass[11pt, a4paper, oneside, onecolumn]{article}
+
+% --- Codificación ---
+% Los .tex se escriben en UTF-8 con acentos directos, sin \'a.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% --- Idioma ---
+%   es-noquoting     desactiva el " activo de babel-spanish (choca con tablas)
+%   es-tabla         "Tabla" en lugar de "Cuadro"
+%   es-nodecimaldot  no cambia el punto decimal en modo matemático
+\usepackage[english, spanish, es-noquoting, es-tabla, es-nodecimaldot]{babel}
+
+% --- Geometría de página ---
+% headheight da espacio al logo del encabezado (\articleHeaderLogoHeight).
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm, headheight=22pt]{geometry}
+
+% --- Tipografía ---
+% TeX Gyre Schola (Century Schoolbook) con matemáticas a juego.
+\usepackage{tgschola}
+\usepackage[nc]{newtxmath}
+\usepackage{microtype}
+
+% --- Interlineado y párrafos ---
+\usepackage{setspace}
+\setstretch{1.15}
+\setlength{\parindent}{1.25em}
+\setlength{\parskip}{0.3em}
+
+% Válvula de escape contra Overfull \hbox en términos técnicos largos.
+\setlength{\emergencystretch}{1.5em}
+\hyphenation{PyTorch MONAI FastAPI NiiVue Cornerstone Evidently GitHub
+    ReproPath Thoraxis}
+
+% --- Colores ---
+\usepackage{xcolor}
+\definecolor{articlegray}{gray}{0.35}   % Títulos de sección
+\definecolor{articlelink}{HTML}{0B5394} % Enlaces
+
+% --- Gráficos ---
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+% Los diagramas se hacen con Excalidraw y se insertan como PDF (ver diagrams/).
+
+% --- Títulos de secciones ---
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\Large\bfseries\color{articlegray}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection.}{0.6em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.5em}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% --- Encabezados y pies ---
+% A la izquierda, "Proyecto Integrador -- Thoraxis"; a la derecha, el programa
+% y el logo de UTEC Posgrado; al pie, el número de página. La portada no lleva
+% encabezado (titlepage).
+%
+% El logo se apoya en la línea base, para no tocar la línea del encabezado, y
+% \articleHeaderText sube los dos textos hasta el centro del logo: la mitad
+% de la altura del logo menos la mitad de la altura de la "P". Así el texto y
+% el logo quedan a la misma altura, los textos de ambos lados siguen
+% alineados entre sí y el centrado se mantiene aunque cambie el tamaño del
+% logo o de la letra.
+\newcommand{\articleHeaderText}[1]{%
+    \raisebox{\dimexpr 0.5\articleHeaderLogoHeight - 0.5\fontcharht\font`P\relax}{#1}}
+\usepackage{fancyhdr}
+\fancypagestyle{article}{%
+    \fancyhf{}%
+    \fancyhead[L]{\footnotesize\articleHeaderText{\articleDocument{} -- \articleShortTitle}}%
+    \fancyhead[R]{\footnotesize\articleHeaderText{\articleProgram}\hspace{0.8em}%
+        \includegraphics[height=\articleHeaderLogoHeight]{utec-posgrado}}%
+    \fancyfoot[C]{\thepage}%
+    \renewcommand{\headrulewidth}{0.4pt}%
+}
+
+% --- Figuras y tablas ---
+\usepackage{float}          % [H] para fijar una figura en su lugar
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+% Más aire entre filas de las tablas, para que las de varias líneas no se
+% junten.
+\renewcommand{\arraystretch}{1.25}
+\usepackage[
+    labelfont=bf,
+    labelsep=period,
+    font=small,
+    justification=centering,
+    singlelinecheck=false,
+    skip=6pt
+]{caption}
+
+% --- Listas ---
+\usepackage{enumitem}
+\setlist{itemsep=0.2em, topsep=0.4em}
+
+% --- Matemáticas y unidades ---
+\usepackage{amsmath}
+\usepackage{siunitx}
+\sisetup{output-decimal-marker={,}, group-separator={\,}}
+
+% --- Páginas horizontales para figuras anchas ---
+% pdflscape gira la página en el visor de PDF, además de en la impresión.
+\usepackage{pdflscape}
+\usepackage{afterpage}
+
+% --- Control de extensión del resumen ejecutivo ---
+% refcount lee los números de página de las etiquetas (ver commands.tex).
+\usepackage{refcount}
+
+% --- Bibliografía (IEEE) ---
+% Estilo numérico IEEE (biblatex-ieee): las referencias se numeran en el orden
+% en que se citan. \parencite{clave} da [n] y \textcite{clave}, «Autor et al. [n]».
+\usepackage{csquotes}
+\usepackage[style=ieee, backend=biber]{biblatex}
+\addbibresource{bibliography/references.bib}
+% IEEE usa raya corta (en dash) en los rangos de páginas; el estilo en español
+% pone un guion.
+\DefineBibliographyExtras{spanish}{\renewcommand*{\bibrangedash}{\textendash}}
+% biblatex-ieee solo trae sus textos en inglés: estos son sus equivalentes en
+% español (número de artículo, fecha de consulta y dirección web).
+\DefineBibliographyStrings{spanish}{%
+    artno   = {art\adddot\addnbspace n\adddot\textsuperscript{o}},
+    urlseen = {Consultado\addcolon},
+    url     = {Disponible en},
+}
+
+% --- Enlaces ---
+% hyperref va casi al final: redefine comandos de los paquetes anteriores.
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=articlelink,
+    bookmarksnumbered=true,
+    pdfborder={0 0 0}
+]{hyperref}
+\urlstyle{same}

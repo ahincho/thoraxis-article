@@ -1,0 +1,23 @@
+## =============================================================================
+## chktex - reglas del lint de LaTeX (CI: reusable-latex-lint.yml de
+## nova-shared-02-pipelines)
+## =============================================================================
+## Se desactivan los avisos que chocan con el estilo del proyecto. Todos los
+## demás siguen activos y hacen fallar la CI.
+##
+##  1  "Command terminated with space": macros sin argumentos al final de una
+##     línea (\articleProgram, \par). LaTeX no imprime ese espacio.
+##  8  "Wrong length of dash": "--" en "UTEC -- Posgrado" y "-" en nombres
+##     compuestos o URL.
+## 12  "Interword spacing should perhaps be used": confunde abreviaturas
+##     legítimas ("et al.") seguidas de una cita.
+## 13  "Intersentence spacing": el texto usa muchas siglas (TC, API, ONNX) y
+##     chktex las confunde con finales de oración.
+## 24  "Delete this space to maintain correct pagereferences": salta con
+##     \label en su propia línea después de \caption, que es correcto.
+## =============================================================================
+
+CmdLine
+{
+    -n1 -n8 -n12 -n13 -n24
+}

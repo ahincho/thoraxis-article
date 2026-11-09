@@ -1,0 +1,48 @@
+% =============================================================================
+% Thoraxis - Informe del Proyecto Integrador
+% Programa en Deep Learning - UTEC Posgrado
+% =============================================================================
+% Único punto de entrada. El orden de las partes es el de la sección 3
+% ("Estructura del Trabajo Final") de la guía del proyecto integrador:
+%
+%   3.1  Portada                      sections/00-cover.tex
+%   3.2  Resumen ejecutivo (1 pág.)   sections/01-executive-summary.tex
+%   3.3  Introducción                 sections/02-introduction.tex
+%   3.4  Datos y preparación          sections/03-data.tex
+%   3.5  Desarrollo de la solución    sections/04-development.tex
+%   3.6  Evaluación de la solución    sections/05-evaluation.tex
+%   3.7  Resultados y discusión       sections/06-results-discussion.tex
+%   3.8  Conclusiones                 sections/07-conclusions.tex
+%   3.9  Referencias                  bibliography/references.bib (IEEE)
+%
+% Para compilar con el nombre final (thoraxis-article.pdf) usar
+% scripts/build.ps1 o scripts/build.sh, que también ejecutan biber.
+% =============================================================================
+
+\input{config/preamble}     % Clase, paquetes y formato
+\input{config/metadata}     % Título, integrantes, programa, fecha
+\input{config/commands}     % Macros propias y metadatos del PDF
+
+\begin{document}
+
+\input{sections/00-cover}
+
+\pagestyle{article}
+\input{sections/01-executive-summary}
+
+\clearpage
+\input{sections/02-introduction}
+\input{sections/03-data}
+\input{sections/04-development}
+\input{sections/05-evaluation}
+\input{sections/06-results-discussion}
+\input{sections/07-conclusions}
+
+% --- Referencias (IEEE) ---
+% La guía pide incluir fuentes bibliográficas, conjuntos de datos, modelos,
+% documentación y código de terceros, con un mismo formato de citación.
+\section*{Referencias}
+\addcontentsline{toc}{section}{Referencias}
+\printbibliography[heading=none]
+
+\end{document}

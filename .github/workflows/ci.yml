@@ -1,0 +1,59 @@
+# =============================================================================
+# CI - Lint y compilación del informe en cada cambio
+# =============================================================================
+# Usa las recetas de LaTeX de nova-shared-02-pipelines, fijadas a la rama main:
+#
+#   lint   reusable-latex-lint.yml: chktex sobre todos los .tex, con las
+#          reglas de .chktexrc. Cada aviso sale como anotación en el PR.
+#   build  reusable-latex-build.yml: ejecuta scripts/build.sh (pdflatex,
+#          biber, pdflatex x2) en TeX Live y sube el PDF como artefacto:
+#
+#            thoraxis-article
+#
+# El artefacto se descarga desde la pestaña Actions durante 30 días.
+# =============================================================================
+
+name: CI - Build PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.tex"
+      - "**.bib"
+      - ".chktexrc"
+      - ".latexmkrc"
+      - "figures/**"
+      - "scripts/build.sh"
+      - ".github/workflows/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "**.tex"
+      - "**.bib"
+      - ".chktexrc"
+      - ".latexmkrc"
+      - "figures/**"
+      - "scripts/build.sh"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-latex-lint.yml@main
+
+  build:
+    name: Build
+    uses: ahincho/nova-shared-02-pipelines/.github/workflows/reusable-latex-build.yml@main
+    with:
+      command: ./scripts/build.sh
+      artifact-name: thoraxis-article
+      artifact-path: build/thoraxis-article.pdf

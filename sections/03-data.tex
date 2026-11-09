@@ -1,0 +1,147 @@
+% !TEX root = ../article.tex
+% =============================================================================
+% 3.4 Datos y preparación
+% =============================================================================
+% Guía: origen, tamaño y características de los datos; criterios de
+% selección, limpieza, etiquetado y preprocesamiento; separación de
+% entrenamiento, validación y prueba (con modelos preentrenados, un conjunto
+% de evaluación separado de los ejemplos usados para ajustar la solución);
+% limitaciones de calidad o cobertura y tratamiento de información sensible.
+%
+% Primer avance: datos disponibles o fuente prevista y cómo se accederá a
+% ellos.
+%
+% Datos de cada conjunto verificados el 8 de noviembre de 2026 en Zenodo
+% (API de registros), en la página de la colección en TCIA, en el artículo de
+% cada conjunto y en el repositorio del benchmark de COVID-19.
+% =============================================================================
+
+\section{Datos y preparación}\label{sec:data}
+
+\subsection{Origen y características}\label{sec:data-source}
+Thoraxis usa tres conjuntos públicos de TC de tórax con máscaras de referencia
+de ambos pulmones, todos anonimizados por sus autores
+(Tabla~\ref{tab:datasets}).
+
+\begin{itemize}
+    \item \textbf{TotalSegmentator}, versión~3: 1939 TC tomadas al azar de la
+          rutina clínica y reunidas por el Hospital Universitario de Basilea,
+          con una amplia variedad de
+          patologías, equipos, secuencias e instituciones, y 117 estructuras
+          segmentadas \parencite{wasserthal2023dataset}. La versión~3 agregó
+          291 estudios pediátricos. Los pulmones están segmentados por
+          lóbulos, con la tráquea como clase aparte \parencite{wasserthal2023}.
+    \item \textbf{COVID-19 CT Lung and Infection Segmentation}: 20 TC de
+          pacientes con COVID-19 de la Coronacases Initiative y de
+          Radiopaedia, con el pulmón izquierdo, el derecho y la infección
+          delimitados corte por corte \parencite{ma2020}. Anotadores con uno a
+          cinco años de experiencia trazaron las máscaras, dos radiólogos las
+          refinaron y un radiólogo con más de diez años de experiencia en
+          tórax las verificó \parencite{ma2021}.
+    \item \textbf{LCTSC} (\textit{Lung CT Segmentation Challenge} 2017): 60
+          TC de planificación de radioterapia de pacientes con cáncer de
+          pulmón, 20 de cada una de tres instituciones, con los contornos
+          clínicos de pulmón izquierdo, pulmón derecho, corazón, esófago y
+          médula espinal, revisados según la guía RTOG~1106
+          \parencite{yang2017, yang2018}.
+\end{itemize}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Conjuntos de datos de Thoraxis.}\label{tab:datasets}
+    \small
+    \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{3cm}
+                                 >{\raggedright\arraybackslash}p{1.4cm}
+                                 >{\raggedright\arraybackslash}X
+                                 >{\raggedright\arraybackslash}X
+                                 >{\raggedright\arraybackslash}p{2.7cm}}
+        \toprule
+        Conjunto & Estudios & Formato, tamaño y acceso & Licencia & Uso en
+            Thoraxis \\
+        \midrule
+        TotalSegmentator v3 & 1939 & 37,4~GB en Zenodo, descarga directa. &
+            CC BY 4.0. & Entrenamiento, validación y prueba interna. \\
+        COVID-19 CT Lung and Infection & 20 & NIfTI; 1,1~GB en Zenodo,
+            descarga directa. & CC BY 4.0 en Zenodo; CC BY-NC-SA en el artículo y el
+            repositorio. & Entrenamiento, validación y prueba interna. \\
+        LCTSC & 60 & DICOM con RTSTRUCT; 5,15~GB en TCIA, con TCIA Data
+            Retriever. & CC BY 3.0. & Solo validación externa. \\
+        \bottomrule
+    \end{tabularx}
+    \articleSource{Elaboración propia a partir de
+    \textcite{wasserthal2023dataset}, \textcite{ma2020} y
+    \textcite{yang2017}.}
+\end{table}
+
+Los datos no se guardan en los repositorios. El repositorio
+\texttt{thoraxis-model} contiene los scripts de descarga desde las fuentes
+oficiales y versiona los datos procesados con DVC, de modo que cada integrante
+obtiene los mismos archivos. Para explorar los datos antes de la descarga
+completa, TotalSegmentator ofrece un subconjunto de 102 estudios
+\parencite{wasserthal2023dataset}.
+
+\subsection{Selección, limpieza y preprocesamiento}\label{sec:preprocessing}
+De TotalSegmentator se seleccionan los estudios que contienen ambos pulmones
+completos, es decir, con los cinco lóbulos presentes y sin cortes truncados en
+los vértices ni en las bases. Se excluyen los estudios con archivos dañados o
+con máscaras incompletas. El preprocesamiento sigue estos pasos:
+
+\begin{enumerate}
+    \item \textbf{Conversión:} todos los estudios se llevan a NIfTI; los de
+          LCTSC se convierten desde DICOM y RTSTRUCT.
+    \item \textbf{Etiquetas comunes:} cada estudio queda con dos clases,
+          pulmón izquierdo y pulmón derecho. En TotalSegmentator se unen los
+          lóbulos de cada lado; en LCTSC se usan \texttt{Lung\_L} y
+          \texttt{Lung\_R}; en el conjunto de COVID-19 se descarta la máscara
+          de infección, que queda incluida en el pulmón.
+    \item \textbf{Orientación y remuestreo:} todos los volúmenes se llevan a
+          la misma orientación y a un tamaño de vóxel común.
+    \item \textbf{Intensidades:} se aplica la ventana pulmonar de $-1250$ a
+          $250$ unidades Hounsfield y se normaliza a $[0, 1]$. Diez casos del
+          conjunto de COVID-19, los de Radiopaedia, ya vienen con esa ventana
+          y reescalados a $[0, 255]$, y sus autores recomiendan tratar los
+          demás igual \parencite{ma2020}; aplicar la misma ventana a todos los
+          conjuntos los vuelve comparables.
+\end{enumerate}
+
+\pendiente{tamaño de vóxel común, número de estudios de TotalSegmentator que
+cumplen los criterios y decisión sobre los estudios pediátricos}
+
+\subsection{Partición de los datos}\label{sec:data-split}
+La partición se hace por paciente, nunca por corte, para que ningún paciente
+aparezca en dos conjuntos. Los estudios de TotalSegmentator y de COVID-19 se
+dividen en entrenamiento, validación y prueba interna, estratificando por
+fuente para que los pulmones con COVID-19 estén en los tres conjuntos. LCTSC
+queda completo como validación externa: sus 60 pacientes provienen de otras
+fuentes y no se usan para entrenar ni para elegir hiperparámetros.
+
+TotalSegmentator, el modelo publicado que sirve de referencia, se entrenó con
+los estudios de su propio conjunto \parencite{wasserthal2023}. Por eso solo se
+compara con Thoraxis en LCTSC y en los casos de COVID-19, que no vio durante
+su entrenamiento.
+
+\pendiente{proporciones de la partición y número de pacientes por conjunto}
+
+\subsection{Limitaciones y datos sensibles}\label{sec:data-limitations}
+Los conjuntos difieren en cómo delimitan el pulmón. En LCTSC, los hilios, los
+vasos de más de 5~mm y los bronquios principales quedan fuera del pulmón, el
+tumor se excluye en la mayoría de los casos sin garantía sobre la extensión
+excluida, y el pulmón colapsado puede excluirse en algunos estudios
+\parencite{yang2017}. Estas diferencias pueden bajar el Dice en la validación
+externa aunque la segmentación sea anatómicamente razonable, y se analizarán
+en la evaluación. Como referencia de lo alcanzable, en el reto de 2017 los
+mejores métodos obtuvieron un Dice promedio de 0,95 a 0,98 para los pulmones
+\parencite{yang2018}.
+
+La cobertura también es limitada: el conjunto de COVID-19 tiene solo 20
+casos, LCTSC representa únicamente a pacientes con cáncer de pulmón de tres
+instituciones, y ninguno de los conjuntos incluye pacientes de la región. La
+licencia del
+conjunto de COVID-19 es ambigua, pues el registro de Zenodo indica CC BY 4.0
+y el artículo y el repositorio del benchmark, CC BY-NC-SA; el proyecto se
+ajusta a la más restrictiva, que permite su uso académico no comercial.
+
+Todos los datos son públicos y anonimizados. Ningún estudio, máscara ni dato de
+pacientes se sube a los repositorios, cuyo \texttt{.gitignore} debe bloquear
+los formatos médicos (DICOM, NIfTI, NRRD y MHA); se citan todas las fuentes
+según sus licencias y no se intenta identificar a ningún paciente.
